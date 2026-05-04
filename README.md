@@ -1,12 +1,12 @@
 # 🚀 Serverless LiteLLM Vertex AI Proxy on Google Cloud Run
 
-A premium, lightweight, serverless proxy packaged for **Google Cloud Run** that emulates the standard **OpenAI API schema**. It dynamically translates LLM requests into Google Cloud **Vertex AI regional endpoints** using the latest **Gemini 2.5** and **Gemini 3 / 3.1 Preview** models.
+A lightweight, serverless proxy packaged for **Google Cloud Run** that emulates the standard **OpenAI API schema**. It dynamically translates LLM requests into Google Cloud **Vertex AI regional endpoints** using the latest **Gemini 2.5** and **Gemini 3 / 3.1 Preview** models.
 
 This allows developer tools like **Cursor IDE**, **VS Code Continue**, or any custom code assistant to securely leverage high-performance, data-resident Vertex AI Gemini endpoints via standard public HTTPS connections.
 
 ---
 
-## 💎 Premium Cloud Native Features
+## 💎 Cloud Native Features
 
 - **Zero-Key Google Authentication**: Eliminates the risk of downloading and managing `service-account-key.json` files. The service leverages **Cloud Run's attached runtime Service Account** via native Application Default Credentials (ADC).
 - **Serverless Scalability**: Scales automatically from zero to handle intensive multi-file codebase indexing or code refactoring, and scales down to zero when idle, resulting in near-zero operational costs.
@@ -69,7 +69,9 @@ gcloud projects add-iam-policy-binding YOUR_GCP_PROJECT_ID \
    - `gemini-2.5-flash` (Recommended for autocompletion)
    - `gemini-3-flash-preview`
    - `gemini-3.1-pro-preview`
-7. Start coding! Select these from any chat prompt or inline code generation window.
+7. Disable "Auto" mode in cursor and select one of the models you just created
+8. Disable all the other models (unless you want to use them)
+9. Start coding! Select these from any chat prompt or inline code generation window.
 
 ---
 
@@ -132,7 +134,7 @@ curl -X POST https://YOUR_CLOUD_RUN_URL.run.app/v1/chat/completions \
 
 ---
 
-## 📊 Cloud Environment Variables Matrix
+## 📊 Cloud Environment Variables
 
 If you ever need to update settings via the Google Cloud Console or `gcloud run services update`, these are the core environment variables managed by the service:
 
@@ -142,4 +144,4 @@ If you ever need to update settings via the Google Cloud Console or `gcloud run 
 | `GCP_REGION` | Vertex Endpoint Regionality | Location of Vertex AI regional endpoint (e.g. `us-central1`, `europe-west3`) |
 | `LITELLM_MASTER_KEY` | Service Security Gateway | Secret token used to authenticate all inbound IDE API requests |
 | `PORT` | System Runtime | Injected dynamically by Cloud Run, defaults to 4000 if missing |
-# vertexai-litellm-proxy
+

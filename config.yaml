@@ -1,0 +1,63 @@
+# ============================================================================
+# LiteLLM Proxy Configuration - Vertex AI Regional Gemini Models
+# ============================================================================
+# This file defines the available models, their routing parameters to Vertex AI,
+# and general proxy settings required for optimal IDE compatibility.
+
+model_list:
+  # --------------------------------------------------------------------------
+  # Core Native Gemini Models
+  # --------------------------------------------------------------------------
+  - model_name: gemini-2.0-flash
+    litellm_params:
+      model: vertex_ai/gemini-2.0-flash
+      vertex_project: "os.environ/GCP_PROJECT_ID"
+      vertex_location: "os.environ/GCP_REGION"
+
+  - model_name: gemini-2.0-flash-thinking
+    litellm_params:
+      model: vertex_ai/gemini-2.0-flash-thinking-exp
+      vertex_project: "os.environ/GCP_PROJECT_ID"
+      vertex_location: "os.environ/GCP_REGION"
+
+  - model_name: gemini-2.5-flash
+    litellm_params:
+      model: vertex_ai/gemini-2.5-flash
+      vertex_project: "os.environ/GCP_PROJECT_ID"
+      vertex_location: "os.environ/GCP_REGION"
+
+  - model_name: gemini-2.5-pro
+    litellm_params:
+      model: vertex_ai/gemini-2.5-pro
+      vertex_project: "os.environ/GCP_PROJECT_ID"
+      vertex_location: "os.environ/GCP_REGION"
+
+  - model_name: gemini-3-flash-preview
+    litellm_params:
+      model: vertex_ai/gemini-3-flash-preview
+      vertex_project: "os.environ/GCP_PROJECT_ID"
+      vertex_location: "os.environ/GCP_REGION"
+
+  - model_name: gemini-3.1-pro-preview
+    litellm_params:
+      model: vertex_ai/gemini-3.1-pro-preview
+      vertex_project: "os.environ/GCP_PROJECT_ID"
+      vertex_location: "os.environ/GCP_REGION"
+
+
+# ----------------------------------------------------------------------------
+# Proxy Global Settings
+# ----------------------------------------------------------------------------
+litellm_settings:
+  # CRITICAL FOR IDEs: IDEs often send OpenAI-specific parameters like 'presence_penalty',
+  # 'frequency_penalty', or custom properties. Vertex AI will fail with a 400 bad request if
+  # it receives these. 'drop_params: true' strips out any parameters unsupported by the target model.
+  drop_params: true
+  
+  # Set a standard timeout for Vertex AI calls (in seconds)
+  set_timeout: 60
+
+# General server-wide configurations
+general_settings:
+  # Enable standard verbose logging for debug. Can set to false if you want quiet logs.
+  master_key: "os.environ/LITELLM_MASTER_KEY"
